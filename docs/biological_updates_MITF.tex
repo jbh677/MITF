@@ -1,0 +1,260 @@
+\documentclass[12pt,a4paper,twoside,times,blue,standard]{csiroreport2017}
+
+
+\usepackage{amsmath,amssymb,wasysym,bm}
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\eps}{\epsilon}
+\newcommand{\rp}{r^\prime}
+\newcommand{\ap}{a^\prime}
+\newcommand{\lp}{l^\prime}
+\newcommand{\vphi}{\varphi}
+\newcommand{\ty}{\tilde{y}}
+\newcommand{\tl}{\tilde{l}}
+\newcommand{\tr}{\tilde{r}}
+\newcommand{\tmax}{t_{\rm max}}
+\newcommand{\tbz}{\tilde{\textbf{z}}}
+\newcommand{\vtheta}{\vartheta}
+\newcommand{\vphit}{\vphi^{\rm tag}}
+
+
+%Fill in the title, authors, in confidence text, etc as required.
+%If you don't want one or the other then just comment them out.
+%\docinconfidence[Commercial In Confidence]
+
+
+\docdivision[Oceans \& Atmosphere]
+
+
+\docbusinessunit[
+    CSIRO Oceans \& Atmosphere\\
+    Battery Point, Hobart 7000, Tasmania, Australia.\\
+]
+
+
+% The title of the document. Try to keep it to 3 lines or less.
+
+\doctitle[\vspace{0mm}\huge Updated biological relationships for 2021 stock assessment of Macquarie Island toothfish]
+
+\docfootertitle[MITF biological parameters]
+
+\docauthors[\vspace{4mm}\Large R. Hillary]
+
+%\docreportnum[Report Number: CMIS 2009/00]
+
+\docreportdate[16\textsuperscript{th} April 2021]
+
+\doccopyrightyear[2021] % For the Copyright and Disclaimer notice
+
+
+\begin{document}
+%=================================================
+
+\section{Background}
+
+In this paper we detail updates to two key biological relationships that are essential for the Macquarie Island toothfish stock assessment: growth and maturity. For growth we have ageing data up to and including 2019; for maturity we have data up to and including 2020.
+
+\section{Growth relationships}
+
+We now have ageing data from 1996 up to and including 2019 and so we are in a position to update the male and female growth relationships required for the stock assessment. There are 3,627 female and 2,331 male length-age measurements. That is an additional 403 female and 191 male measurements, relative to the previous growth update in 2019.
+
+\subsection{Data \& methods}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=10cm,height=8cm]{figs/latage_mitf.pdf}
+    \end{center}
+    \caption{\textit{Length-at-age summary for the female (left) and male (right) aged animals.}}
+\end{figure}
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=8cm,height=8cm]{figs/lf_female.pdf}\includegraphics[width=8cm,height=8cm]{figs/lf_male.pdf}
+    \end{center}
+    \caption{\textit{Length frequency summary for the female (left) and male (right) aged animals.}}
+\end{figure}
+
+The distribution of length-at-age is simply defined from the growth relationship. The mean length-at-age is defined via the Schnute parameterisation of the von Bertalanffy growth curve:
+
+\begin{equation*}
+    \ds \mathbb{E}\left(l(a)\right) = l_1(a_1)+(l_2(a_2)-l_1(a_1))\frac{1-\exp\left(-k\left(a-a_1\right)\right)}{1-\exp\left(-k\left(a_2-a_1\right)\right)},
+\end{equation*}
+where $l_1(a_1)$ and $l_2(a_2)$ are the lengths at reference ages $a_1$ and $a_2$ ($a_2>a_l$), and $k$ is the growth rate. 
+
+To generate the distribution of length-at-age we assume a lognormal distribution (with a given standard deviation $\sigma_l$) around this mean length-at-age. This gives us a sex-specific distribution of length-at-age, $\pi_{l\,|\,a,s}$.
+
+To get to the ``true'' distribution of age-given-length we use Bayes' rule:
+
+\begin{equation*}
+    \ds \tilde{\pi}_{a\,|\,y,l,s} = \frac{\pi_{l\,|\,a,s}\pi_{a\,|\,y,s}}{\pi_{l\,|\,y,s}},
+\end{equation*}
+where $\pi_{y\,|\,a,s}$ is the prior age distribution, and $\pi_{l\,|\,y,s}$ is the length distribution in the fishery:
+\begin{equation*}
+    \ds \pi_{l\,|\,y,s} = \sum_a \pi_{l\,|\,a,s}\pi_{a\,|\,y,s},
+\end{equation*}
+and the prior age distribution is defined as follows:
+\begin{equation*}
+    \ds \pi_{a\,|\,y,s} \propto \mathrm{LogN}\left(\mu_{y,s},\sigma^2_{y,s}\right)
+\end{equation*}
+
+For a given ageing error matrix, $A_{a,\ap}$, where $\sum_a A_{a,\ap}=1$ and $\ap$ is the ``true'' age in this sense, the adjusted distribution of age-given-length (that we use to compare to the observations) is defined as
+\begin{equation*}
+    \ds \pi_{a\,|\,y,l,s} = \sum_{\ap} \tilde{\pi}_{\ap\,|\,y,l,s} A_{a,\ap}.
+\end{equation*}
+
+For the length frequency data of the aged fish (again to be understood as being different to the length frequency data per fishery used in the assessment) we assume a Dirichlet-multinomial distribution:
+\begin{equation*}
+    \ds \Lambda^l_{y,s} = \frac{(n_{y,s}!)\Gamma(\omega_{y,s})}{\Gamma(n_{y,s}+\omega_{y,s})}\prod_l\frac{\Gamma(n_{y,l,s}+\omega_{y,s}\pi_{l\,|\,y,s})}{n_{y,l,s}!\Gamma(\omega_{y,s}\pi_{l\,|\,y,s})}
+\end{equation*}
+where $n_{y,s}=\sum_l n_{y,l,s}$, $\Gamma()$ is the gamma function, and the over-dispersion parameter, $\omega_{y,s}$, is defined as follows:
+\begin{equation*}
+    \ds \omega_{y,s} = \frac{n_{y,s}-\vphi_{l,s}}{\vphi_{l,s}-1},
+\end{equation*}
+and $\vphi_{l,s}>1$ is the over-dispersion \emph{factor}: the degree to which the multinomial variance is inflated due to correlation between the length classes. The point of going to the trouble of using the D-M formulation is that $\vphi_{l,s}$ is an estimable parameter (as opposed to tuning to get the right value of $n_{y,s}$).
+
+We assume a multinomial distribution for this likelihood as the default, primarily because we assume size dictates selectivity, so we would then expect that the distribution of age \emph{within a given length class} would be random (i.e. multinomial in this case). So, the likelihood of the age-given-length data is as follows:
+\begin{equation*}
+    \ds \Lambda^{a|l}_{y,l,s}=\prod_a \left(\pi_{a\,|\,y,l,s}\right)^{n_{y,a,l,s}}
+\end{equation*}
+
+For the Schnute model reference ages we assume $a_1=5$ and $a_2=20$ as assumed in the revised assessment model. Length bins are in 10cm blocks from 20cm at the minimum to a maximum that ensures the largest length bin includes the largest animal observed in the data (for each sex). The parameters estimated in the full model (using both length and age-given-length data) are:
+
+\begin{itemize}
+    \item Mean length-at-age parameters: $l_1$, $l_2$, and $k$
+    \item Standard deviation in mean length-at-age: $\sigma_l$
+    \item Prior mean $\mu_y$ and standard deviation $\sigma_y$ of the prior age distribution
+    \item Over-dispersion factor in the length data $\vphi_l$
+\end{itemize} 
+
+The overall (sex-specific) joint log-likelihood is defined as follows:
+
+\begin{equation*}
+    \ds \ln\Lambda^{\rm tot}_s=\sum_y\left(\ln\Lambda^l_{y,s}+\sum_l\ln\Lambda^{a\,|\,l}_{y,l,s}\right).
+\end{equation*}
+
+We use the TMB package \cite{tmb} to find the parameters which maximise the joint likelihood of the length and age-given-length data, as well as give us approximate standard errors for each of the parameters and process variables.
+
+\subsection{Results}
+
+Fits to the female and male size data can be see in Figure 2.3, and the summary of the mean age-given-length can be found in Figure 2.4. Table 2.1 summarises the key parameter estimates. As seen in previous analyses, males seem to grow faster initially, but to a smaller asymptotic length; as a result, size-at-age (and weight) of females is greater than males from about age 5 onwards. The key mean length parameters ($k$, $l_1$, and $l_2$) are all very accurately estimated. Variability in mean length-at-age is very well estimated in both cases and the same for both sexes. 
+
+\begin{table}[h]
+    {\scriptsize
+    \begin{center}
+    \begin{tabular}{|c|ccccccc|}
+         \hline
+          Variable & $k$ & $l_1$ & $l_2$ & $L_{\infty}$ & $t_0$ & $\sigma_l$ & $\vphi_l$\\
+          \hline 
+          \hline
+          Female & 0.055 (0.003) & 0.494 (0.003) & 1.16 (0.004) & 1.68 (0.03) & -1.3 (0.15) & 0.15 (0.012) & 1.05\textsuperscript{*} (NA)\\
+          Male & 0.067 (0.003) & 0.488 (0.002) & 1.02 (0.007) & 1.33 (0.03) & -1.86 (0.18) & 0.144 (0.016) & 1.05\textsuperscript{*} (NA)\\
+          & & & & & & &\\
+          Female (2019) & 0.055 (0.003) & 0.49 (0.004) & 1.15 (0.005) & 1.67 (0.04) & -1.29 (0.18) & 0.15 (0.015) & 1.32 (0.07)\\
+          Male (2019) & 0.071 (0.004) & 0.48 (0.003) & 1.01 (0.008) & 1.29 (0.04) & -1.63 (0.21) & 0.15 (0.02) & 1.29 (0.08) \\
+          \hline
+    \end{tabular}
+    \end{center}
+    }
+    \caption{\textit{Maximum likelihood estimates (and approximate standard errors in brackets) of key estimated parameters and process variables for each sex. The \textsuperscript{*} for each of the over-dispersion coefficients indicate that the estimates hit the lower bound and, as such, we cannot produce sensible standard errors. The 2019 estimates are included for comparison}}
+\end{table}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=8cm,height=8cm]{figs/lfhat_female.pdf}\includegraphics[width=8cm,height=8cm]{figs/lfhat_male.pdf}
+    \end{center}
+    \caption{\textit{Observed (magenta circles) and predicted (blue lines) length frequency summary for the female (left) and male (right) aged animals.}}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=8cm,height=8cm]{figs/alfhat_female.pdf}\includegraphics[width=8cm,height=8cm]{figs/alfhat_male.pdf}
+    \end{center}
+    \caption{\textit{Observed (magenta circles) and predicted median (full blue line) and 95\% CI (dotted blue line) mean age-given-length summary for the female (left) and male (right) aged animals.}}
+\end{figure}
+
+When summarising the fits the length data, for both sexes the fits are generally fairly good, with no apparent systematic issues over time. For both sexes, the estimates of the over-dispersion factor were at the lower bound of 1.05 (we cannot have $\vphi_l=1$ so 1.05 is a sensible lower bound), strongly indicating an apparent lack of over-dispersion in the size data \emph{of aged animals} and, hence, the logical corollary that a multinomial distribution would in fact be as appropriate. Looking at the fits to the mean age-given-length data, we see good fits for both sexes and across years. Importantly, practically all the estimates sit within the approximate 95\% CI. Also, analyses of the standardised residuals for these data show that the variance clusters around about 0.9 for both sexes - specifically they do not appear consistently over 1 and so the multinomial assumption also seems fine in this case.
+
+\section{Maturity relationships}
+
+Maturity is a key life-history characteristic used as input to age and size structured integrated assessment models. For the Macquarie Island toothfish stock assessment maturity-at-length is the key relationship \cite{revass2019}, translated through the distribution of length-at-age to get an expected maturity-at-age relationship then used to define the female spawning population abundance and age structure. The method used to estimate these key parameters was updated in 2019 \cite{mimat} to better account for established maturity definitions \cite{matref}, and agreed by the SARAG to be used in an update to the stock assessment to calculate the recommended TACs later that year. 
+
+\subsection{Data \& Methods}
+
+Figure 3.1 summarises the current data (by sex and length) for MI toothfish. The MI assessment uses maturity-at-length as the fundamental input, so we need to do a little work to account for the differential treatment of animals that are stage 2 and those that are 3 and above. This is done as follows: within a given length-class, a given proportion of the animals will have maturity stage 2; whatever the expected length class those animals would be in \emph{2 years hence} would be the reference length at which the relative maturity of those animals applies. For the animals of maturity stage 3 and above their length-at-sampling is the reference length. The overall reference length for a given length class is simply the sum of the reference lengths for 2 and 3 and above animals weighted by the relative number of animals in those two maturity stage classifications.
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=8cm,height=8cm]{figs/maturity_data.pdf}
+    \end{center}
+    \caption{\textit{Measured maturity stage (1--6) data (vertical panels) given length (x-axis) in metres and for both sexes.}}
+\end{figure}
+
+The data are organised in terms of specific and not necessarily equal size length classes, $l$. For each nominal length class $l$, the data are $n_l$ (number of animals measured for maturity state, and $k_l$ the number of animals found to be at maturity stage 2--6). Within a given length-class this can be modelled as a binomial process, with associated probability $\pi_l$:
+
+\begin{equation}
+\ds \pi_l = \frac{g(l)^\nu}{\mu^\nu+g(l)^\nu},
+\end{equation}
+where:
+
+\begin{itemize}
+    \item $g(l)$ is the \emph{reference} length-class given an animal is within length class $l$ when measured, accounting for the relative number of maturity stage 2 and 3--6 animals in the sample (see below for details)
+    \item $\mu$ is the length at 50\% maturity
+    \item $\nu$ is a shape parameter
+\end{itemize}
+
+The reference length is a given length class is calculated as follows:
+\begin{align*}
+    \ds w_{l,m} &= \frac{k_{l,m}}{\sum\limits_{j\in\{2,3+\}} k_{l,j}},\\
+    \ds g(l) &= \sum\limits_{j\in\{2,3+\}}\gamma(l,j)w_{l,j},\\
+    \ds \gamma(l,2) &= l+\left(L_\infty-l\right)\times\left(1-e^{-k\tau}\right),\\
+    \ds \gamma(l,3+) &\equiv l,\\
+\end{align*}
+where $\tau=2$ (to represent the length of the animal 2 years hence) and $k_{l,m}$ is the number of animals of maturity stage $m$ in length class $l$. The likelihood of having maturity stage 2--6, given the parameters $\mu$ and $\nu$, is assumed to be binomial:
+\begin{equation}
+    \ds \ell\left(\mathbf{k}\,|\,\mu,\nu\right) \propto \prod_{l\in\mathcal{L}}\pi_l^{k_l}\left(1-\pi_l\right)^{n_l-k_l}
+\end{equation}
+which is maximised to obtain the MLE estimates of $\mu$ and $\nu$. In Eq.~(3.2) $\mathbf{k}$ is the vector containing the number of animals in a given length-class at maturity stage 2--6 and $\mathcal{L}$ the length partition.
+
+\subsection{Results}
+
+For females there were 59,948 measurements with both maturity state \emph{and} length, for males there were 42,504. For females $\mu=98.9$ and $\nu=6.41$; for males $\mu=87.3$ and $\nu=9.61$. In 2019 for females we estimated that $\mu=97$ and $\nu=6.42$; for males $\mu=0.88$ and $\nu=9.32$ \cite{mimat}. In both cases, given the quality of the fits to the data (see Figure 3.2), and the number of data points, the CVs are around 1\% or less. The maturity-at-length relationship for both females and males is shown in Figure 3.3. 
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=7cm,height=7cm]{figs/fits_females.pdf}\includegraphics[width=7cm,height=7cm]{figs/fits_males.pdf}
+    \end{center}
+    \caption{\textit{Fits to female (left) and male (right) maturity data, when grouped into the numbers (per length bin) with maturity state of 2 or greater.}}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[width=9cm,height=9cm]{figs/MITF_matlen.pdf}
+    \end{center}
+    \caption{\textit{Estimated maturity-at-length relationships for both males and females.}}
+\end{figure}
+
+\section{Discussion}
+
+Using a conditional age-at-length statistical framework first outlined in \cite{maccag} we estimated the key growth parameters and distributions for both sexes. Data from 1996 and up to and including 2019 are included. The growth parameters are very accurately estimated for both sexes with females generally being longer-at-age than males from age 5 onwards. They are also very consistent with previous estimates \cite{migrowth}. Variability in length-at-age is estimated to be the same for both sexes, as is the over-dispersion factor for the length frequency data. Fits to both the length data and the mean age-at-length data are good, and the multinomial distribution seems appropriate for the age-given-length data. Given the accuracy of the estimates, it seems appropriate to continue to use these estimates as fixed inputs to the revised stock assessment model.
+
+Using the agreed updated method for estimating maturity-at-length \cite{mimat} we estimated a revised maturity relationship for both males and females. For females the size at 50\% maturity was 98.9cm and for males it was 87.3cm (given the growth dimporphism this difference is actually far less pronounced when translating to maturity-at-age). These estimates are, as with the growth parameters, very consistent with those estimated in 2019 \cite{mimat} and, again as with the growth parameters, estimated with standard errors small enough to make us comfortable with assuming them to be effectively fixed inputs to the stock assessment model.
+
+\clearpage
+\begin{thebibliography}{99}
+
+        \bibitem{tmb} Kristensen, K. \etal~(2016) TMB: Automatic Differentiation and Laplace Approximation. \textit{J. Stat. Soft.} {\bf 70}(5): 1--21.
+         
+\bibitem{revass2019} Proposed new assessment structure for Macquarie Island toothfish using data upto and including August 2018. \textit{SARAG 59}.
+
+    \bibitem{mimat} Hillary, R. M. (2019) Revised estimates of maturity-at-length for Macquarie Island Patagonian toothfish . \textit{SARAG} March 2019.
+
+    \bibitem{matref} Kock K.-H. and A. Kellermann (1991) Review: Reproduction in Antarctic notothenioid fish. \textit{Antarctic Science}, \textbf{3}:125--150 
+
+    \bibitem{maccag} Hillary, R. M., Day, J. and Haddon, M. (2015) Age-at-length or length-at-age for modelling the growth of Macquarie Island toothfish? \textit{SARAG, Feb 2015}.
+
+
+    \bibitem{migrowth} Hillary, R. M. (2019) Estimates of growth parameters for input to the revised stock assessment model. \textit{SARAG} March 2019.
+
+    \end{thebibliography}
+
+\end{document}
