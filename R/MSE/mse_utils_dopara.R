@@ -520,7 +520,8 @@ proj.para <- function(Biol,Fleet,nyproj,CatchControl,nitsx,ncore,link=TRUE) {
 
   }
 
-  restmp <- mclapply(rep(nitsx,ncore),wrap,mc.cores=ncore)
+  nx <- rep(nitsx,ncore)
+  restmp <- foreach(i=1:ncore) %dopar% wrap(nx[i])
 
   # join everything together
 
@@ -581,7 +582,7 @@ proj.list <- function(prjobj,nyp,X) {
 
   }
 
-  restmp <- mclapply(1:length(prjobj),wrapp,mc.cores=ncore)
+  restmp <- foreach(i=1:length(prjobj)) %dopar% wrapp(i)
  
 
 }

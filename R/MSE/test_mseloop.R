@@ -1,7 +1,7 @@
 ######################################################
-# initial popn of OM #################################
+# test MSE loop ######################################
 ######################################################
-# R. Hillary CSIRO 2023 ##############################
+# R. Hillary CSIRO 2024 ##############################
 ######################################################
 
 library(parallel)
@@ -98,16 +98,6 @@ bet <- (5*hh-1)/(B0*(1-hh))
 alp*B0/(1+bet*B0) # better equal R0
 Biol$R0
 
-########################
-# move forward in time #
-########################
-
-#load("filestore/dep50.rda")
-
-# total number of years
-
-nyproj <- 20                           
-
 # additional biology
 
 Biol$sigmar <- 0.4
@@ -117,35 +107,26 @@ Biol$Ninit <- tmp$N # start at unexploited eqm
 
 # additional fleet information
 
+nyinit <- 20
 Fleet$hinit <- hinit
-Fleet$hmult <- rep(1,nyproj)
+Fleet$hmult <- rep(1,nyinit)
 
-# type of control
+########################
+# move forward in time #
+########################
+
+# type of initial fishery dynamics (FALSE => harvest rates)
 
 CatchControl <- FALSE
-Fleet$Cfix <- c(240,240)
 
 # iterations
 
-nits <- 1000
+nits <- 500
 
 # multi-core
 
-nitsx <- 100
+nitsx <- 50
 ncore <- 10
-
-system.time(prj <- get.popdyn(Biol,Fleet,nyproj,CatchControl,nits)) 
-
-boxplot(t(prj$SSBtot),outline=FALSE,col='magenta',ylim=c(0,B0))
-
-
-system.time(prj <- proj.para(Biol,Fleet,nyproj,CatchControl,nitsx,ncore,TRUE))
-#system.time(prj <- proj.para(Biol,Fleet,nyproj,CatchControl,nitsx,ncore,FALSE))
-
-boxplot(t(prj$SSBtot)/B0,outline=FALSE,col='magenta',ylim=c(0,1.05))
-abline(h=0.5,lty=2)
-par(mfrow=c(nf,1))
-for(f in 1:nf) boxplot(t(prj$C[,f,]),outline=FALSE,col='magenta',ylim=c(0,400))
 
 ################
 # tag dynamics #
@@ -163,8 +144,6 @@ ptmort <- 1
 
 psi <- 0.9 # instantaneous retention probability
 nu <- 0.015 # annual rate of shedding post loss
-qt <- function(tau,psi,nu) {return(psi*exp(-nu*tau))}
-# P(ntag = 2, 1, 0 | tau) = {qt^2, 2*qt*(1-qt), (1-qt)^2}
 
 # tag reporting rate (different for number of attached tags)
 
@@ -172,49 +151,11 @@ prep <- 0.95
 
 # create tag object
 
-Tag <- list(ntpt=ntpt,prep=prep,ptmort=ptmort,mulrel=log(72),sdlrel=0.3,ytagon=10,ytagoff=nyproj-1,maxrecev=7,phi=1.05,xi=0.25)
+Tag <- list(ntpt=ntpt,prep=prep,ptmort=ptmort,mulrel=log(72),sdlrel=0.3,ytagon=10,ytagoff=nyinit-1,maxrecev=7,phi=1.05,xi=0.25)
 
-# testing 
-
-xxx <- list(N=prj$N[,,,,1],H=prj$H[,,,,1],C=prj$C[,,1])
-
-system.time(tdf <- get.tag.data2(xxx))
-
-# generate tag data using parallel functionality
-
-prjlist <- listify.proj(prj)
-system.time(tdflist <- mclapply(1:nits,wrap.get.tag.data2,mc.cores=ncore))
+# control object for tag estimators
 
 mctrl <- list(M=Biol$M,sigmah=0.05)
-model <- 'tgm1re'
-system.time(replist <- mclapply(1:nits,wrap.get.hrates,mc.cores=ncore))
-
-hyhat <- array(dim=c(length(replist[[1]]$hy),nits))
-for(nn in 1:nits) hyhat[,nn] <- replist[[nn]]$hy
-hbar <- mean(unlist(lapply(prjlist,function(x){mean(x$H[1:dim(hyhat)[1],,,])})))
-boxplot(t(hyhat),outline=FALSE,col='green',ylim=c(0,0.05))
-abline(h=hbar,lty=2)
-
-# spatial options
-
-model <- 'tgm2re'
-system.time(replist <- mclapply(1:nits,wrap.get.hrates,mc.cores=ncore))
-
-hyshat <- array(dim=c(dim(replist[[1]]$hy),nits))
-for(nn in 1:nits) hyshat[,,nn] <- replist[[nn]]$hy
-hbar <- mean(unlist(lapply(prjlist,function(x){mean(x$H[1:dim(hyhat)[1],,,])})))
-par(mfrow=c(2,1))
-boxplot(t(hyshat[,1,]),outline=FALSE,col='green',ylim=c(0,0.05))
-abline(h=hbar,lty=2)
-boxplot(t(hyshat[,2,]),outline=FALSE,col='green',ylim=c(0,0.05))
-abline(h=hbar,lty=2)
-
-# spatial estimates
-
-Phi.mc <- array(dim=c(nits,nr,nr))
-for(nn in 1:nits) Phi.mc[nn,,] <- replist[[nn]]$Phi
-apply(Phi.mc,c(2,3),quantile,c(0.025,0.5,0.975))
-Biol$T
 
 #######################
 # running a simple MP #
@@ -222,12 +163,30 @@ Biol$T
 
 # MSE control file
 
-mctrl <- list(M=Biol$M,sigmah=0.05)
-msectrl <- list(initmod='tgm1re',prjmod='tgm1re',mctrl=mctrl,yrng=1:25,nyinit=20,firstdec=20,tactau=5)
+msectrl <- list(initmod='tgm1re',prjmod='tgm1re',mctrl=mctrl,yrng=1:40,nyinit=nyinit,firstdec=20,tactau=5)
 
 # MP definition
 
 tacctrl <- list(MP='fixedh',ytau=4,htarg=0.026,maxChange=0.2,catchSplit=rep(1/nf,nf))
 
-save.image(file='filestore/dep50.rda')
+# call MSE execution script
+
+system.time(source("wrapmseloop.R"))
+
+# simple plots (rubbish boxeys for now...)
+
+# depletion
+
+boxplot(t(prj$SSBtot/B0),xlab='year',ylab='Relative SSB',outline=FALSE,col='purple',ylim=c(0,1.05))
+abline(v=msectrl$nyinit,lty=2)
+abline(h=0.5,lty=2,col='blue')
+
+# total catch
+
+boxplot(t(apply(prj$C,c(1,3),sum)),xlab='year',ylab='Catch',outline=FALSE,col='green',ylim=c(0,750))
+
+# naming convention:
+# MPname + # of proj years + length of TAC period + %age max TAC change
+
+save(prj,Biol,Fleet,msectrl,tacctrl,file='filestore/fixedh_10_2_20.rda')
 

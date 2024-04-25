@@ -15,26 +15,27 @@ ilogit <- function(x){return(1/(1+exp(-x)))}
 
 # load up test data set
 
-tdf <- read.table("test_tags1.dat",header=TRUE)
+tdf <- read.table("test_tags2.dat",header=TRUE)
 
 ## 1. aggregated across sex, age, and space
 
 compile("tagmod1.cpp")
 dyn.load(dynlib("tagmod1"))
 
-ttdf <- aggregate(tdf$nrec,by=list(recev=tdf$recev,yrel=tdf$yrel),FUN=sum)
+t2df <- subset(tdf,recev>1)
+ttdf <- aggregate(t2df$R,by=list(recev=t2df$recev,yrel=t2df$yrel),FUN=sum)
 
 # sorting out the nrel "issue"
 
-ntdf <- aggregate(tdf$nrel,by=list(recev=tdf$recev,yrel=tdf$yrel),FUN=sum)
-ntdf <- aggregate(ntdf$x,by=list(yrel=ntdf$yrel),FUN=function(x){x <- mean(x)/2})
+t3df <- subset(tdf,recev==1)
+ntdf <- aggregate(t3df$T-t3df$R,by=list(yrel=t3df$yrel),FUN=sum)
 nrdf <- aggregate(ttdf$x,by=list(yrel=ttdf$yrel),FUN=sum)
 
 relyr <- ntdf$yrel
 nrel <- ntdf$x
 nrelev <- length(nrel)
 ntot <- nrdf$x
-nrecev <- aggregate(ttdf$recev,by=list(yrel=ttdf$yrel),FUN=max)$x
+nrecev <- aggregate(ttdf$recev,by=list(yrel=ttdf$yrel),FUN=max)$x-1
 nrecmax <- max(nrecev)
 
 R <- array(dim=c(nrelev,nrecmax+2))
