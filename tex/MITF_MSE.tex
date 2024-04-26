@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper,twoside,times,sky,standard]{csiroreport2017}
+
+
+\usepackage{amsmath,amssymb,wasysym,bm}
+\newcommand{\etal}{\textit{et al.}}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\eps}{\epsilon}
+\newcommand{\rp}{r^\prime}
+\newcommand{\ap}{a^\prime}
+\newcommand{\lp}{l^\prime}
+\newcommand{\vphi}{\varphi}
+\newcommand{\ty}{\tilde{y}}
+\newcommand{\tl}{\tilde{l}}
+\newcommand{\tr}{\tilde{r}}
+\newcommand{\tmax}{t_{\rm max}}
+\newcommand{\tbz}{\tilde{\textbf{z}}}
+\newcommand{\vtheta}{\vartheta}
+\newcommand{\vphit}{\vphi^{\rm tag}}
+
+
+%Fill in the title, authors, in confidence text, etc as required.
+%If you don't want one or the other then just comment them out.
+%\docinconfidence[Commercial In Confidence]
+
+
+\docdivision[Environment]
+
+
+\docbusinessunit[
+    CSIRO Environment\\
+    Battery Point, Hobart 7000, Tasmania, Australia.\\
+]
+
+
+% The title of the document. Try to keep it to 3 lines or less.
+
+\doctitle[\vspace{0mm}\huge Initial exploration of replacing the CCAMLR rule for Macquarie Island toothfish]
+
+\docfootertitle[MITF initial MSE]
+
+\docauthors[\vspace{4mm}\Large R. Hillary \& P. Bessell-Browne]
+
+%\docreportnum[Report Number: CMIS 2009/00]
+
+\docreportdate[26\textsuperscript{th} April 2024]
+
+\doccopyrightyear[2024] % For the Copyright and Disclaimer notice
+
+
+\begin{document}
+%=================================================
+
+\section{Background}
+
+The Macquarie Island Patagonian toothfish fishery, as well as the majority of the CCAMLR-managed toothfish fisheries (HIMI, South Georgia, Ross Sea), are all managed via integrated stock assessments that are then used to generate an overall TAC via the CCAMLR Harvest Control Rule (HCR) - henceforth ``the CCAMLR rule''. The general working mechanism of the CCAMLR rule can be summarised as follows:
+
+\begin{enumerate}
+    \item Use current state of population from assessment to project forward
+    \item Calculate (constant) catch where relative SSB above 50 with probability 0.5 after 35 years
+    \item Calculate (constant) catch where relative SSB above 20\% with probability 0.9 (all years)
+    \item TAC is the \emph{lowest} of these two catches
+\end{enumerate}
+
+The initial context of the rule could be characterised as follows: given sporadic estimates of the abundance of a population, how can precautionary catch levels be set in place - possibly for an extended amount of time. Within the Australian fisheries context the CCAMLR rule as been applied consistently for over a decade for both the HIMI and Macquarie Island fisheries. The original context for the CCAMLR rule does not really apply to the current state of Australian toothfish fisheries. Both the major fisheries have mature, relatively complex integrated assessments that are capable of providing multi-decade reconstructions of both the population and fishery dynamics. They both have their advantages and challenges - and some of these layer onto the overall effectiveness of the CCAMLR management approach - but they have little in common with the original CCAMLR rule context. More importantly, the application of the rule has resulted in a number of negative performance behaviours:
+
+\begin{itemize}
+    \item TAC variability - there are no explicit constraints on the degree to which the TAC can vary from one decision to the next. Changes in excess of 20\% are quite common. This level of change is often hard-wired into other management procedures as a \emph{maximum} change and values well below this are considered good performance indicators
+    \item Interaction with recent dynamics - the constant catch, long-term projection nature of the CCAMLR rule has the tendency to amplify the effect of recent stock and fishery dynamics on the TAC
+    \item Overall it is \emph{very} sensitive to the overall scale of the population coming from the stock assessment - at least in the last three TAC decisions at Macquarie Island this relationship has been almost a one-to-one positive relationship
+\end{itemize}
+
+The last point has further implications that are hard to quantify in relation to the TAC, but very impactful in relation to the management process. If the management advice is so strongly dependent on the stock assessment it becomes scientifically and practically very difficult to explore development and adaption of the assessment where the implications for the management advice are not influencing the process - both consciously and subconsciously. As important is the fact that the CCAMLR rule has never really been fully tested in the Management Strategy Evaluation (MSE) sense, where the full feedback dynamics of the whole system are simulated. The process of MSE is considered best practice when developing and evaluating fisheries management strategies (REF). Since its genesis in the International Whaling Commission (REF) it has shown repeatedly that two general observations hold true: (i) ``on paper'' good ideas for management strategies do not always work very well when tested against reality; and (ii) complex is not always better than simple in terms of ``assessment'' methods in management strategies - empirical or simpler model-based assessments often out-perform the current stock assessment model when tested concurrently.
+
+\section{Methods}
+
+\subsection{Operating Model structures}
+
+\subsection{Mark-recapture estimators}
+
+\subsection{Candidate Management Procedures}
+
+\section{Results}
+
+\section{Discussion}
+
+\clearpage
+\begin{thebibliography}{99}
+
+    \bibitem{tmb} Kristensen, K. \etal~(2016) TMB: Automatic Differentiation and Laplace Approximation. \textit{J. Stat. Soft.} {\bf 70}(5): 1--21.
+         
+    \bibitem{revass2019} Proposed new assessment structure for Macquarie Island toothfish using data upto and including August 2018. \textit{SARAG 59}.
+
+    \bibitem{mimat} Hillary, R. M. (2019) Revised estimates of maturity-at-length for Macquarie Island Patagonian toothfish . \textit{SARAG} March 2019.
+
+\end{thebibliography}
+
+\clearpage
+
+\section*{Appendix}
+
+\end{document}
