@@ -43,10 +43,10 @@ if(model == 'tgm1re') {
   }
 } 
 
-if(model == 'tmg2') {
+if(model == 'tgm2') {
 
   Phi.mc <- array(dim=c(nits,nr,nr)) 
-  hyhat <- array(dim=c(dim(replist[[1]]$hy,nits)))
+  hyhat <- array(dim=c(dim(replist[[1]]$hy),nits))
   for(nn in 1:nits) {
 
     Phi.mc[nn,,] <- replist[[nn]]$Phi 
@@ -55,10 +55,10 @@ if(model == 'tmg2') {
   }
 }
 
-if(model == 'tmg2re') {
+if(model == 'tgm2re') {
 
   Phi.mc <- array(dim=c(nits,nr,nr)) 
-  hyhat <- array(dim=c(dim(replist[[1]]$hy,nits)))
+  hyhat <- array(dim=c(dim(replist[[1]]$hy),nits))
   sigmahat <- rep(NA,nits) 
   for(nn in 1:nits) {
 
@@ -162,10 +162,10 @@ for(j in 2:ndec) {
     }
   } 
 
-  if(model == 'tmg2') {
+  if(model == 'tgm2') {
 
     Phi.mc <- array(dim=c(nits,nr,nr)) 
-    hyhat <- array(dim=c(dim(replist[[1]]$hy,nits)))
+    hyhat <- array(dim=c(dim(replist[[1]]$hy),nits))
     for(nn in 1:nits) {
 
       Phi.mc[nn,,] <- replist[[nn]]$Phi 
@@ -174,10 +174,10 @@ for(j in 2:ndec) {
     }
   }
 
-  if(model == 'tmg2re') {
+  if(model == 'tgm2re') {
 
     Phi.mc <- array(dim=c(nits,nr,nr)) 
-    hyhat <- array(dim=c(dim(replist[[1]]$hy,nits)))
+    hyhat <- array(dim=c(dim(replist[[1]]$hy),nits))
     sigmahat <- rep(NA,nits) 
     for(nn in 1:nits) {
 
