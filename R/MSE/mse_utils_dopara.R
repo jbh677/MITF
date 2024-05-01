@@ -510,18 +510,18 @@ get.popdyn <- function(Biol,Fleet,nyproj=20,CatchControl=FALSE,nits=2) {
 
 } #}}}
 
+wrap.proj <- function(nitsz,biol,fleet,nyz,CC) {
+
+  resx <- get.popdyn(biol,fleet,nyz,CC,nitsz) 
+  return(resx)
+
+}
+
 #{{{ proj.para
 proj.para <- function(Biol,Fleet,nyproj,CatchControl,nitsx,ncore,link=TRUE) {
 
-  wrap <- function(nitsx) {
-
-    resx <- get.popdyn(Biol,Fleet,nyproj,CatchControl,nitsx) 
-    return(resx)
-
-  }
-
   nx <- rep(nitsx,ncore)
-  restmp <- foreach(i=1:ncore) %dopar% wrap(nx[i])
+  restmp <- foreach(i=1:ncore) %dopar% wrap.proj(nx[i],Biol,Fleet,nyproj,CatchControl)
 
   # join everything together
 
