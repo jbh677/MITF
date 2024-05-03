@@ -76,7 +76,7 @@ The process of MSE is considered best practice when developing and evaluating fi
 
 \begin{figure}[hb]
     \begin{center}
-        \includegraphics[width=11cm,height=7cm]{MSE.pdf}
+        \includegraphics[width=11cm,height=7cm]{figs/MSE.pdf}
     \end{center}
     \caption{\textit{A system scale schematic of the MSE process. The red box encapsulates where the Management Procedure (harvest strategy) is embedded in the wider fishery system.}}
 \end{figure}
@@ -156,7 +156,7 @@ where $\tau$ is the length of time over which the moving average is taken. Also 
 \begin{equation*}
     \ds f(h,\xtheta)=\left(\frac{h^{\rm targ}}{\bar{h}}\right)^\nu
 \end{equation*}
-so $\xtheta=\{h^{\rm targ},\nu\}$ and $\nu$ is a response parameter such that for $\nu>1$ the HCR is superlinear and for $\nu<1$ it is sublinear in its response. Initially we simply explore $\nu=1$ but there are often cases where we want to dial up (or down) the responsiveness of the HCR and this kind of parameter is a straightforward and interpretable way to do this. This type of HCR will increase/decrease the TAC if the recent mean harvest rates are below/above the target. The main tuning parameter in this HCR would be the target harvest rate, $h^{\rm targ}$ - to be clear this is just a parameter of the HCR, not a feature of the true dynamics of the OM. Even if we set the main objective to be attaining $SSB_{\rm msy}$ and tuned this MP to achieve that objective it does not mean that $h^{\rm targ}\equiv h_{\rm msy}$. Parameters of any HCR are useful degrees of freedom that can be altered or tuned directly to achieve a given set of objectives and do not need to have interpretable counterparts in concepts like MSY or MEY for example, even if they are tuned to achieve those objectives. 
+so $\xtheta=\{h^{\rm targ},\nu,\tau\}$ and $\nu$ is a response parameter such that for $\nu>1$ the HCR is superlinear and for $\nu<1$ it is sublinear in its response. Initially we simply explore $\nu=1$ but there are often cases where we want to dial up (or down) the responsiveness of the HCR and this kind of parameter is a straightforward and interpretable way to do this. This type of HCR will increase/decrease the TAC if the recent mean harvest rates are below/above the target. The main tuning parameter in this HCR would be the target harvest rate, $h^{\rm targ}$ - to be clear this is just a parameter of the HCR, not a feature of the true dynamics of the OM. Even if we set the main objective to be attaining $SSB_{\rm msy}$ and tuned this MP to achieve that objective it does not mean that $h^{\rm targ}\equiv h_{\rm msy}$. Parameters of any HCR are useful degrees of freedom that can be altered or tuned directly to achieve a given set of objectives or performance characteristics and do not need to have interpretable counterparts in concepts like MSY or MEY for example, even if they are tuned to achieve those objectives. 
 
 \subsection{Management objectives \& performance statistics}
 
@@ -188,11 +188,63 @@ Once we have tuned a suite of candidate MPs, and inspected the performance stati
 
 Somewhat naturally these tests separate into fishery and population dynamic groupings. In the Southern bluefin tuna example \cite{sbtmp} fishery robustness tests focussed on alternative hypotheses about past and future longline catchability (CPUE index is used in the MP) and the relationship between abundance and CPUE. Population dynamic scenarios related to future recruitment failure (given a previous prolonged period of low recruitment in the recent past) and alternative abundance indices that resulted in different stock status outcomes in the historical dynamics. 
 
-For the Macquarie Island case there are not too many obvious fishery related robustness tests beyond fishing location dynamics (relative to the North/South divide). There is a single boat and we do not use effort directly or CPUE as an abundance index so no catchability issues to explore beyond perhaps in performance statistics. In terms of population dynamics there are some focal points: (i) size/age structured migration and changes over time given we have a spatial model; (ii) future changes in growth given observed shifts in weight-at-length in relation to possible environmental changes; (iii) future changes in recruitment dynamics (spatial split, regime changes in the average level). The MSE process is a more natural place to deal with the issue of climate change and sustainability because they are hard to include directly in the assessment process, and often really involve future scenarios relating to the population dynamics.
+For the Macquarie Island case there are not too many obvious fishery related robustness tests beyond fishing location dynamics (relative to the North/South divide). There is a single boat and we do not use effort directly or CPUE as an abundance index so no catchability issues to explore beyond perhaps in performance statistics. In terms of population dynamics there are some focal points: (i) size/age structured migration and changes over time given we have a spatial model; (ii) future changes in growth given observed shifts in weight-at-length in relation to possible environmental changes; (iii) future changes in recruitment dynamics (spatial split, regime changes in the average level). The MSE process is a more natural place to deal with the issue of climate change and sustainability because environmental effects are hard to include directly in the stock assessment process, and often really involve future scenarios relating to the population dynamics.
 
 \subsection{Simple example}
 
+To demonstrate the MSE process we employed a Macquarie Island toothfish like example case study:
+
+\begin{itemize}
+    \item Essentially the same life-history parameters (growth, maturity, natural mortality), fishery characteristics (long-line, selectivity parameters), and spatial set up (two areas with 10\% annual movement for all ages)
+    \item The population begins at the unfished state with a fixed harvest rate fishing strategy for 20 years before the MP is implemented. The fixed harvest rate is the value that will attain a female SSB depletion level of 0.5 at deterministic equilibrium
+    \item Ten years after fishing commenced an annual tagging program at 3 tags-per-tonne is initiated 
+    \item After twenty years of fishing when the tagging data has sufficiently accumulated we assume an MP is implemented with a TAC decision made every 5 years
+    \item The projection goes for 20 years and the candidate MPs are tuned achieve a female SSB level of 50\% of unfished with probability 0.5 in the final year of the projections (i.e. 20 years after MP implementation)
+\end{itemize}
+
+This is a simple almost exploratory fisheries scenario but it is a useful  in that it can outline several key features of relevance to the Macquarie Island fishery. In terms of candidate MPs we explored two:
+
+\begin{enumerate}
+    \item \textbf{MP1}: uses spatially/sex/age aggregated tagging data using the non-spatial mark-recapture estimator and estimates the random effect variance of the harvest rate year effects. The fixed HCR parameters are $\tau=4$ and $\nu=1$ with $h^{\rm targ}$ the tuning parameter
+    \item \textbf{MP2}: uses sex/age aggregated but spatially structured tagging data using the spatial mark-recpature estimator (estimating area-specific harvest rates and migration parameters jointly)  with the random effect variance of the harvest rate year effects estimated also. To get an overall harvest rate the MP uses an average of the region-specific harvest rates (weighted by the relative catch split). The fixed HCR parameters are $\tau=4$ and $\nu=1$ with $h^{\rm targ}$ the tuning parameter
+\end{enumerate}
+
 \section{Results}
+
+As well as summarising the initial example MSE scenario in this section we also outline how well the two main non-spatial and spatial mark-recapture estimators perform on the actual Macquarie Island toothfish fishery tagging data. This is to demonstrate that these simplified estimators can go along way to replicating the key features of the estimates of harvest rates (and migration in the spatial case) coming from the stock assessment. 
+
+\subsection{Example MSE results}
+
+Both \textbf{MP1} \& \textbf{MP2} were tuned (via the $h^{\rm targ}$ HCR parameter) to meet the example management objectives. We summarised their performance using five main statistics:
+
+\begin{enumerate}
+    \item Relative (female) SSB in the middle of the projection period (10 years from the implementation of the candidate MPs)
+    \item Relative (female) SSB at the end of the projection period (20 years from the implementation of the candidate MPs)
+    \item Time-averaged TAC for the projection period after MP implementation
+    \item The AAV in the projection period when the MP is active
+    \item The probability that the maximum TAC change constraint is triggered in the active MP projection period
+\end{enumerate}
+
+Figure 3.1 summarises the performance statistics we calculated for the two candidate MPs. Clearly the performance of the two candidate MPs is very similar. They are both tuned, within a tolerance of 1\%, to obtain the same final relative SSB and we see a very similar distribution around the tuned median depletion at the end of the projection period. In terms of average TACs the medians are very similar - a little higher for \textbf{MP2} but also a little more variable - as are the AAV statistics, though for \textbf{MP2} the distribution is a little narrower. The probability that the maximum TAC change constraint was triggered for \textbf{MP1} and \textbf{MP2} was and 0.015 and 0.011,respectively.
+
+\begin{figure}[hb]
+    \begin{center}
+        \includegraphics[width=11cm,height=10cm]{figs/fixedh_mpcomp.pdf}
+    \end{center}
+    \caption{\textit{Performance summary of the two tuned candidate MPs. The quantiles within the violins are the median and approximate 90\%iles.}}
+\end{figure}
+
+Figure 3.2 graphically summarises the time evolution of the key population and fishery dynamics: relative female SSB, TAC and average harvest rates. We only show them for \textbf{MP1} given they are very similar for \textbf{MP2}.
+
+\begin{figure}[hb]
+    \begin{center}
+        \includegraphics[width=5cm,height=5cm]{figs/fixedh_dep.pdf}\includegraphics[width=5cm,height=5cm]{figs/fixedh_tac.pdf}\includegraphics[width=5cm,height=5cm]{figs/fixedh_hrate.pdf}
+    \end{center}
+    \caption{\textit{Time evolution summary of the relative female SSB (left), TAC (middle), and the average harvest rate (right). The quantiles within the violins are the median and approximate 90\%iles.}}
+\end{figure}
+
+
+\subsection{Tagging estimators and Macquarie Island tagging data}
 
 \section{Discussion}
 
