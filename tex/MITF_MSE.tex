@@ -1,6 +1,5 @@
 \documentclass[12pt,a4paper,twoside,times,sky,standard]{csiroreport2017}
 
-
 \usepackage{amsmath,amssymb,wasysym,bm}
 \newcommand{\etal}{\textit{et al.}}
 \newcommand{\ds}{\displaystyle}
@@ -12,6 +11,14 @@
 \newcommand{\ty}{\tilde{y}}
 \newcommand{\tl}{\tilde{l}}
 \newcommand{\tr}{\tilde{r}}
+\newcommand{\ttt}{\tilde{t}}
+\newcommand{\ttmax}{\tilde{t}_{\rm max}}
+\newcommand{\piret}{\pi^{\rm ret}}
+\newcommand{\pirec}{\pi^{\rm rec}}
+\newcommand{\pirep}{\pi^{\rm rep}}
+\newcommand{\pp}{\mathbf{p}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
 \newcommand{\tmax}{t_{\rm max}}
 \newcommand{\tbz}{\tilde{\textbf{z}}}
 \newcommand{\vtheta}{\vartheta}
@@ -225,7 +232,7 @@ Both \textbf{MP1} \& \textbf{MP2} were tuned (via the $h^{\rm targ}$ HCR paramet
     \item The probability that the maximum TAC change constraint is triggered in the active MP projection period
 \end{enumerate}
 
-Figure 3.1 summarises the performance statistics we calculated for the two candidate MPs. Clearly the performance of the two candidate MPs is very similar. They are both tuned, within a tolerance of 1\%, to obtain the same final relative SSB and we see a very similar distribution around the tuned median depletion at the end of the projection period. In terms of average TACs the medians are very similar - a little higher for \textbf{MP2} but also a little more variable - as are the AAV statistics, though for \textbf{MP2} the distribution is a little narrower. The probability that the maximum TAC change constraint was triggered for \textbf{MP1} and \textbf{MP2} was and 0.015 and 0.011,respectively.
+Figure 3.1 summarises the performance statistics we calculated for the two candidate MPs. Clearly the performance of the two candidate MPs is very similar. They are both tuned, within a tolerance of 1\%, to obtain the same final relative SSB and we see a very similar distribution around the tuned median depletion at the end of the projection period. In terms of average TACs the medians are very similar - a little higher for \textbf{MP2} but also a little more variable - as are the AAV statistics, though for \textbf{MP2} the distribution is a little narrower. The probability that the maximum TAC change constraint was triggered for \textbf{MP1} and \textbf{MP2} was and 0.015 and 0.011, respectively.
 
 \begin{figure}[hb]
     \begin{center}
@@ -234,7 +241,7 @@ Figure 3.1 summarises the performance statistics we calculated for the two candi
     \caption{\textit{Performance summary of the two tuned candidate MPs. The quantiles within the violins are the median and approximate 90\%iles.}}
 \end{figure}
 
-Figure 3.2 graphically summarises the time evolution of the key population and fishery dynamics: relative female SSB, TAC and average harvest rates. We only show them for \textbf{MP1} given they are very similar for \textbf{MP2}.
+Figure 3.2 graphically summarises the time evolution of the key population and fishery dynamics: relative female SSB, TAC and average harvest rates. We only show them for \textbf{MP1} given they are very similar for \textbf{MP2}. In the 20 year initial period the effort (harvest rate) is kept constant at the equilibrium value that would result in a (deterministic) SSB depletion of 0.5, and we see the spawning population gradually declining towards this level but is still above it (median value of around 0.61) by year 20. The candidate MPs are tuned to attain an SSB depletion of 0.5 (with probability 0.5) by year 40, which would not happen in the fixed harvest rate initial scenario it would take longer. As a result, the candidate MPs initial increase the harvest rate (and TACs) to achieve this objective. By the third and fourth TAC decision the candidate MPs begin to then decrease the catches (and harvest rates) as the spawner biomass declines towards the target.
 
 \begin{figure}[hb]
     \begin{center}
@@ -243,10 +250,70 @@ Figure 3.2 graphically summarises the time evolution of the key population and f
     \caption{\textit{Time evolution summary of the relative female SSB (left), TAC (middle), and the average harvest rate (right). The quantiles within the violins are the median and approximate 90\%iles.}}
 \end{figure}
 
-
 \subsection{Tagging estimators and Macquarie Island tagging data}
 
+An informative test of any model-based candidate MP is: how well does to explain the actual observed data? The general form of the mark-recapture model proposed in this paper (spatial and non-spatial Brownie models) is very similar to the more complex form in the stock assessment, where length, sex and region of release are the key covariates that dictate data aggregation level. We fitted the spatial and non-spatial versions of the suggested MP estimators to the actual Macquarie Island tagging data used in the 2021 assessment. The non-spatial model estimates year-specific harvest rates (in terms of a mean and annual random effect parameter) and the variance of those annual random effects. The spatial model estimates year-specific harvest rates (mean and RE deviation) for each region as well as the migration probabilities between the two North and South regions as defined in the stock assessment. 
+
+\begin{figure}[hb]
+    \begin{center}
+        \includegraphics[width=6cm,height=6cm]{figs/nonspfits_macca.pdf}\includegraphics[width=6cm,height=6cm]{figs/spfits_macca.pdf}
+    \end{center}
+    \caption{\textit{Fits to the Macquarie island tagging data (from the 2021 assessment) for the non-spatial (left) and spatial (right) models. The brown dots are the observed data and the green are the predictions. Each panel corresponds to a release year and displayed are all the recaptures in the years following release.}}
+\end{figure}
+
+Figure 3.3 compares the spatially aggregated fits to the Macquarie Island tagging data for both the spatial and non-spatial estimators. Both models tend to explain the data reasonably well. Basically, they explain the data as well - in this spatially/sex/length aggregated summary - as the stock assessment \cite{misa}. It can be hard to see clearly from the visual summary in Figure 3.3 but the spatial estimator performs better (in the statistical significance sense of the word) than the non-spatial estimator. Figure 3.4 summarises the spatial disaggregated fitting summary when using the spatial estimator. 
+
+\begin{figure}[hb]
+    \begin{center}
+        \includegraphics[width=9cm,height=7cm]{figs/spfits_recyrreg_macca.pdf}
+    \end{center}
+    \caption{\textit{Fits to the Macquarie island tagging data (from the 2021 assessment) for the spatial models. The brown dots are the observed data and the green are the predictions. Each panel corresponds to a recapture region and displayed are all the recaptures in that region in those years.}}
+\end{figure}
+
+In terms of harvest rate estimates Figure 3.5 summarises the spatial estimator's harvest rates for each region with the mean (averaged across sex and age) estimates coming from the 2021 stock assessment. Clearly in the early trawl period the simpler spatial estimator over-estimates harvest rates especially in the earliest period (1994--1998). However, as we move into the long-line regime (from around 2009 onwards) the estimates are far closer together. The reasons for this are twofold and interacting:
+
+\begin{enumerate}
+    \item The tag relese distribution is \emph{generally} on smaller fish that seen across the long-line distribution, and more in-line with the smaller fish caught in the trawl. This increases the probability of recapture (per unit of catch) in the trawl relative to the longline yielding higher recapture rates even for lower harvest rates driven by this differential availability in the two fisheries
+    \item Recruitment deviations are more influential on recaptures in the trawl fishery relative to the longline for the reasons outlined above and a short period of notably weaker year-classes in the late 1980s/early 1990s in the assessment further increased the recapture probability of tags in the trawl fleet in the early tag repcature period
+\end{enumerate}
+
+Firstly, the points above suggest these types of estimators are going to potentially perform better, in terms of capturing average harvest rates, for the longline recaptures. Secondly, in the later longline dominant period the simpler estimators seem to capture mean harvest rates fairly well by area - this is precisely the input we are proposing to use in the candidate MPs outlined herein. In terms of movement estimates the N-to-S movement probability was 0.01, and the S-to-N estimate was 0.03 - the same as the 2021 assessment for N-to-S and under-estimated for S-to-N which was around 0.08. Again, the effect of selectivity - not accounted for in the simpler estimators - is the main driver for under-estimating movement. In the true tag dynamics the releases are mostly still in the ascending limb of the longline selectivity and, as such, are that much less likely to be recaptured even if they did move from S-to-N. In the simpler estimators we have no selectivity effect so the model interprets this as lower estimates of movement. 
+
+\begin{figure}[hb]
+    \begin{center}
+        \includegraphics[width=9cm,height=7cm]{figs/hbarcomp_mpvstkass.pdf}
+    \end{center}
+    \caption{\textit{Estimates of mean harvest rates by region (the two panels) from the stock assessment (black in terms of median and 95\% credible intervals) and for the simple spatial estimator (blue points).}}
+\end{figure}
+
 \section{Discussion}
+
+For both the Macquarie Island and HIMI Patagonian toothfish fisheries there  has been a number of years of discussion about what might replace the CCAMLR rule as the primary management advice instrument. It has been considered best practice to use the MSE process to develop and test alternative management strategies for a number of years \cite{mse} and in this paper we performed some initial exploratory work to develop and test candidate Management Procedures using the tagging data given this is the major data source for Macquarie Island.In this work we do not use the complex integrated stock assessment as the data analysis method; we use a simplified suite of mark-recapture estimators to obtain harvest rate estimates to use in the Harvest Control Rules. We could, in principle, use the full stock assessment as the analysis method but there are several reasons why we either don't need to or might not want to:
+
+\begin{enumerate}
+    \item Complexity: when testing methods from simple empirical MPs all the way to integrated stock assessment models the most complicated model doesn't always perform best. In fact, there often appears to be a range of complexity between the simplest empirical rules and the assessment that yields as good as if not better performance \cite{mse,iwc,sbtmp,mprev}. Additionally, with complicated assessments, such as those for toothfish \textit{spp.}, understanding and explaining how new data and model changes affect outcomes can be very hard to do definitively. Simpler analysis methods are far more amenable to stakeholder understanding of why an MP makes a given decision
+    \item Testability: stock assessments are not fixed points, and each time they are run they often require human decisions on any changes required. These are effectively impossible to include in the MSE testing process, so if we test a single fixed version of the assessment in the MSE loop we are not truly testing the process of management via the outcomes of the stock assessment
+    \item ``Separation of powers'': decoupling the assessment from the setting of management advice is a widely accepted additional benefit of the MP approach \cite{iwc,sbtmp}. Obviously, when the assessment effectively sets the management advice there is both conscious and unconscious pressure on decision making. This can inhibit the ability of analysts to develop the assessment over time, as well as the ability of a given working group to make either required or impactful decisions (so-called ``decision paralysis'' \cite{sbtmp})
+\end{enumerate}
+
+To develop the Operating Models required for the MSE testing process we generalised the underlying population and fishery models used in the stock assessment \cite{misa}. We have sex/age/spatial/size structured dynamics as well as the ability to explore a number of stage (age/sex) or time varying processes for growth, natural mortality, migration, selectivity and recruitment. Given we do not use effort or CPUE in the assessment there is less of a focus on fleet dynamic capability besides the choice of where to fish in a given season. We are able to generate statistically well-defined observations such as (spatiotemporal) mark-recapture data, length/age composition, age-given-length data, and survey abundance indices. The models are custom written in the \texttt{R} statistical language and are highly extendable in relation to alternative hypotheses about the relevant processes - both historical and in the future.
+
+Given this is the first major piece of fully realised MSE work the SARAG has seen in relation to alternatives to the CCAMLR rule, we have included only a Macquarie Island-like simple example. The aim of the work was to set the scene for how we propose to approach the development of new management approaches. The project currently envisages a two-step/two-year process whereby the initial work will be presented and discussed at this meeting of the SARAG. Based on feedback and suggestions at this meeting we would then develop a suite of suitable OMs and candidate MPs for the actual Macquarie Island fishery and report back to the first SARAG meeting in 2025.
+
+For the simple Macquarie-like MSE example the OM began the population in unexploited equilibrium, with 20 years of fishing at the fixed effort (harvest rate) level that would eventually reduce the population to 50\% of the unfished level. After the first ten years of fishing tags were released into the two spatial regions. After the initial 20 years candidate MPs were then implemented that use the tagging data and make a TAC decision every 5 years with 20 years of projections into the future. Each of the two candidate MPs (one spatially explicitly, one using spatially aggregated tagging data) used a relatively simple target harvest rate HCR and were tuned (using the target parameter) to achieve a median relative (female) SSB of 50\% of the unfished level by the final year. The only additional constraint in the candidate MPs was that the maximum percentage change in TAC - up or down - was 20\%.
+
+To assess relative performance of the two tuned candidate MPs we calculated several performance statistics: ``mid-way'' and final relative SSB, average catch over the projection period, and average variation in TAC when a management decision is made. Both candidate MPs performed very similarly, which was not surprising given the even population spatial distribution and relatively low level of migration between the two regions (10\%). The MP with the spatial mark-recapture model performed slightly better in terms of both slightly higher average TACs, and slightly tighter levels of AAV but there was little meaningful performance difference. In both cases the median levels of AAV were around 6--7\% and either MP never hit the maximum TAC change constraint more than 2\% of the time. While not over-interpreting the results of this simple example we suggest that they demonstrate a number of important points:
+
+\begin{itemize}
+    \item For the kind of tagging program at Macquarie Island (in terms of release and recapture numbers) simplified mark-recapture estimators can clearly obtain informative estimates of harvest rates and migration that can be used within candidate MPs
+    \item Candidate MPs that show \emph{significantly} lower levels of TAC variation are able to meet very similar objectives to those used currently
+    \item They exhibit behaviour that is relatively straightforward to interpret and explain to stakeholders
+    \item We need to think carefully about objectives, time-frames and current status when deciding where we want an MP to take the stock, when we want to get there, and how we want to get there
+\end{itemize}
+
+As a further exploration of the potential utility of the proposed simplified estimators we fitted the spatial mark-recapture model to the actual Macquarie Island data used in the 2021 assessment. The models fit the data reasonably well - arguably as well as we do in the stock assessment. They do show some clear trends in the estimates of mean harvest rates in the early years where trawling was dominant. They tend to over-estimate harvest rates due to the coincidence of the release and fished size distribution, and the stronger effect of year-class trends given the smaller fish being caught at that time. However, once we enter the long-line period post by around 2009 we see that the model does a reasonable job of capturing both the mean level and time-trends in the assessment harvest rates. Given this is what we propose to use in the candidate MPs for Macquarie Island this is a reassuring performance trait.  
+
+In summary, we have outlined an MSE software suite that can generate the types of population and fishery dynamics we require, as well as the types of statistically consistent observations we collect for that can be used in candidate MPs. Using a simple example we have demonstrated how a toothfish-like population and fishery can be managed via MSE tested and fully tuned MPs that use mark-recapture data - the primary data source at Macquarie Island. We also fitted the spatial version of our suite of simplified mark-recapture models to the Macquarie Island data from the 2021 assessment and found it can fit to the data about as well as the assessment does, and can replicate the recent mean level and time-trends in the longline harvest rates of both regions, as well as the estimates of movement between the North and South regions. There is still a lot of work to be done: (i) conditioning of Macquarie Island specific reference set of OMs; (ii) development of a wider suite of candidate MPs to test; (iii) development of a full suite of performance statistics; (iv) definition of the suite of robustness tests; and (v) most importantly, agreement on and definition of the management objectives, constraints, and preferred performance traits.
 
 \clearpage
 \begin{thebibliography}{99}
@@ -258,7 +325,7 @@ Figure 3.2 graphically summarises the time evolution of the key population and f
     \bibitem{misa} Bessell-Browne, P., and Hillary, R.M. (2023) Integrated stock assessment for Macquarie Island toothfish using data upto and including
         2022. \textit{SARAG May 2023}.
 
-    \bibitem{sbtmp} Hillary, R.M. \etal (2016) A scientiﬁc alternative to moratoria for rebuilding depleted international tuna stocks. \textit{Fish \& Fisheries} {\bf 17}: 469--482.
+    \bibitem{sbtmp} Hillary, R.M. \etal~(2016) A scientiﬁc alternative to moratoria for rebuilding depleted international tuna stocks. \textit{Fish \& Fisheries} {\bf 17}: 469--482.
 
     \bibitem{mprev} Carruthers, T.R. (2016) Performance review of simple management procedures. \textit{ICES. J. Mar. Sci.} {\bf 73}(2): 464--482.
 
@@ -273,5 +340,77 @@ Figure 3.2 graphically summarises the time evolution of the key population and f
 \clearpage
 
 \section*{Appendix}
+
+There are two classes of estimator proposed for the candidate MPs:
+
+\begin{enumerate}
+    \item Non-spatial using the Brownie model with recapture probabilities constructed from harvest rate and natural mortality and with a multinomial likelihood
+    \item Spatial Brownie model with recapture probabilities constructed from harvest rate, natural mortality and the movement transition matrix and also with a multinomial likelihood
+\end{enumerate}
+
+In both cases we do not use within-season recaptures, similar to the stock assessment, and the release numbers are modified to reflect the removal of these within-season recaptures.
+
+\subsection*{Non-spatial mark-recapture model}
+
+The probability of a double-tagged animal released at time $t$, that has not been recaptured within the release season, surviving to time $t+\ttt$ in the future with \emph{at least} on tag still attached is defined via the following recursion:
+\begin{align*}
+    \ds \pi^s_{t+1} &= \piret(1)\times e^{-M},\\
+    \ds \pi^s_{t+\ttt} &= \pi^s_{t+\ttt-1}\times\piret(\ttt)\times e^{-M}\times(1-h_{\ttt-1}),\\
+\end{align*}
+where $M$ is the (annual) natural mortality rate, $h_t$ is the harvest rate, and $\pi^{\rm ret}(\ttt)$ is the probability of a double tagged animal having at least one tag still attached at time $\ttt$ after initial release. The probability of recapturing \emph{and} reporting a tag, conditional on it surviving to that point in time with at least one tag still attached, is 
+\begin{equation*}
+    \ds \pirec_t = \pirep_t\times h_t,
+\end{equation*}
+where $\pirep_t$ is the reporting rate. We then arrive at the recapture probability conditional on the release covariate(s):
+\begin{equation*}
+    \ds \pi^r_{t+\ttt} = \pirec_{t+\ttt}\times\pi^s_{t+\ttt}.
+\end{equation*}
+To construct the multinomial likelihood we require the probability of \emph{never} recapturing a tag in the recapture time-frame $\ttmax$:
+\begin{equation*}
+    \ds \pi^{\neg}=1-\sum\limits_{i=t+1}^{\ttmax}\pi^r_{i}.
+\end{equation*}
+
+So the data become the vector of recaptures $\mathbf{R}=\{R_{t+1},\hdots,R_{\ttmax}\}$ and the number of fish never recaptured, $\mathcal{R}=\tilde{T}-\sum_i R_i$ and their multinomial likelihood is defined as follows:
+\begin{equation*}
+    \ds \Lambda \propto \left(\pi^{\neg}\right)^{\mathcal{R}}\times\prod\limits_{i=t+1}^{\ttmax}\left(\pi^r_{i\,|\,t}\right)^{R_i}
+\end{equation*}
+
+The parameters of this model are the logit-scale mean and year random effect that define the harvest rate:
+\begin{equation*}
+    \ds h_t = \textrm{logit}^{-1}\left(\mu_h+\eps_t\right),
+\end{equation*}
+where $\eps_t\sim N(0,\sigma^2_h)$ and in the full model the RE variance $\sigma^2_h$ is also estimated via the maximisation of $\Lambda$.
+
+\subsection*{Spatial mark-recapture model}
+
+For the spatial model we need to factor in migration between spatial regions and this is achieved via the spatial transition matrix, $\Phi$. The construction of the recapture probabilities follows the same two-step process as for the non-spatial case: (i) survival and presence in a given spatial region with a single tag attached; and (ii) recapture and reporting in a given region.
+
+To construct the probability of surviving to time $t+\ttt$, with a at least one tag still attached, and to be present in a given region, $\tr$, given the release region, $r$, we consider the time-evolution of a vector $\uu_t$ where each entry of $\uu$ represents the probability of being alive with at least one tag still attached in a given region at a given time $t$. The size of $\uu$ is the number of regions in the model and, for the release time $t$ and region $r$, $u^r_t=1$ and for all other entries it is zero. For time $t+1$ we have that
+\begin{equation*}
+    \ds \uu_{t+1}=\Phi\mathbf{S}_t\uu_t,
+\end{equation*}
+where $\mathbf{S}_t$ is a diagonal matrix with the same entry: $S^{ii}_t=e^{-M}\piret(1)$. For at-liberty times of $\ttt\geq2$
+\begin{equation*}
+    \ds \uu_{t+\ttt}=\Phi\mathbf{S}_{t+\ttt-1}\uu_{t+\ttt-1},
+\end{equation*}
+where $\mathbf{S}_{t+\ttt-1}$ is also a diagonal matrix with entries
+\begin{equation*}
+    \ds S^{ii}_{t+\ttt-1}=e^{-M}\piret(\ttt)(1-h_{t+\ttt-1,i})
+\end{equation*}
+
+The probability of capture, conditional on surviving to be in a given region with at least one tag still attached, is given by the following:
+\begin{equation*}
+    \ds \vv_{t} = \{\pirep_{t,1}\times h_{t,1},\cdots,\pirep_{t,n_r}\times h_{t,n_r}\}, 
+\end{equation*}
+and so the probability required to define the multinomial likelihood is now:
+\begin{equation*}
+    \ds \pp_{t+\ttt} = \vv_{t+\ttt}\times\uu_{t+\ttt}
+\end{equation*}
+
+As in the non-spatial case we need to calculate the probability of never recapturing a tag in the recapture period and we join this with a vectorised form of $\{\pp_{t+1},\cdots,\pp_{\tmax}\}$ to construct the multinomial probability for the spatial recapture history. The parameters of this model are the spatial mean and RE deviations for the harvest rates:
+\begin{equation*}
+    \ds h_{t,r}=\textrm{logit}^{-1}\left(\mu_{h,r}+\eps_{t,r}\right)
+\end{equation*}
+and the $n_r*(n_r-1)$ parameters it takes to parameterise the $n_r\times n_r$ spatial transition matrix, $\Phi$.
 
 \end{document}
