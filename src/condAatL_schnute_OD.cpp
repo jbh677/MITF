@@ -6,7 +6,7 @@
 template <class Type>
 Type square(Type x) {return x*x;}
 
-template<class Typeq
+template<class Type>
 Type objective_function<Type>::operator() ()
 {
   // data & priors
@@ -167,6 +167,7 @@ Type objective_function<Type>::operator() ()
 
     omegaLF = (neff(y)-phiLF)/(phiLF-Type(1));
 
+    nll_lf += lgamma(neff(y)+omegaLF)-lgamma(omegaLF);
   	for(l=0;l<nbins;l++) { 
 
       if(lf(y,l) > 0) nll_lf +=  lgamma(1e-6+omegaLF*pl(y,l))-lgamma(1e-6+lf(y,l)+omegaLF*pl(y,l));
